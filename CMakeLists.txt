@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.24)
+cmake_minimum_required(VERSION 3.25)
 
 if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
   include(FetchContent)
@@ -13,11 +13,32 @@ if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
     ${vcpkg_SOURCE_DIR}/scripts/buildsystems/vcpkg.cmake
     CACHE FILEPATH "Vcpkg toolchain file"
   )
-  set(VCPKG_ROOT_DIR ${vcpkg_SOURCE_DIR} CACHE PATH "Vcpkg Root Directory")
 endif()
 
-add_custom_target(UpdateVcpkgBaseline
-  ${VCPKG_ROOT_DIR}/vcpkg x-update-baseline
-)
+project(week-four-lab)
 
-project(week-four-lab VERSION 1.0.0)
+set(NYU_BUILD_TESTS TRUE)
+add_library(lab4 INTERFACE)
+find_package(nyu-cmake CONFIG REQUIRED)
+find_package(catch2 3 CONFIG REQUIRED)
+if(NYU_BUILD_TESTS)
+  add_subdirectory(rtl)
+  enable_testing()
+  add_subdirectory(dv)
+endif()
+
+#needs to come before rtl
+
+
+# Test ti find files
+# nyu_add_sv(
+#   rtl/Exercise1.sv
+#   rtl/Exercise2.sv 
+#   rtl/Exercise3.sv 
+#   rtl/Exercise4.sv
+#   rtl/Mysteries/Mystery1.sv
+#   rtl/Mysteries/Mystery2.sv
+# )
+
+
+
