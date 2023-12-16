@@ -15,3 +15,4 @@
     }
   ]
 }
+// We briefly note that the packages field contains the string "nyu-*", this tells vcpkg that this registry will provide every package that begins with “nyu-”.
